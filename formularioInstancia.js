@@ -1,35 +1,46 @@
-const mensajes = {
-  patronNombreApellido: 'Nombre y apellido: solo texto con letras, ñ y tildes.',
-  patronDNI: 'DNI: debe tener el formato X-55555555 o 55555555-X',
-  patronCorreoElectronico: 'Correo electrónico: debe tener un formato válido',
-};
+const formulario = document.getElementById('formulario-instancia');
+const campos = Array.from(formulario.getElementsByClassName('field'));
+const boton = formulario.getElementsByClassName('btn-submit')[0];
 
-function validar(idInput) {
-  const input = document.getElementById(idInput);
-  input.addEventListener('input', (e) => {
-    e.preventDefault();
+function validarCampo(campo) {
+  const esNombreApellidoValido = (c) => /^[A-Za-zñÁÉÍÓÚáéíóú]+$/.test(c.value.trim());
+  const esDniValido = (c) => /^([A-Z]-[0-9]{8})|([0-9]{8}-[A-Z])$/.test(c.value.trim());
+  const esEmailValido = (c) => /^[a-z0-9_.-]+@[a-z0-9_.-]+\.[a-z]+$/.test(c.value.trim());
 
-    if (input.validity.valueMissing) {
-      input.setCustomValidity('Falta este valor por introducir.');
-    } else if (input.validity.patternMismatch) {
-      switch (input.name) {
-        case 'nombre':
-        case 'apellido':
-          input.setCustomValidity(mensajes.patronNombreApellido);
-          break;
+  const mensajes = {
+    requerido: 'Falta este valor por introducir.',
+    nombreApellido: 'Nombre y apellido: solo texto con letras, ñ y tildes.',
+    dni: 'DNI: debe tener el formato X-55555555 o 55555555-X',
+    correoElectronico: 'Correo electrónico: debe tener un formato válido',
+  };
 
-        case 'dni':
-          input.setCustomValidity(mensajes.patronDNI);
-          break;
+  if (campo.value.length === 0) {
+    campo.setCustomValidity(mensajes.requerido);
+    return;
+  }
 
-        case 'email':
-          input.setCustomValidity(mensajes.patronCorreoElectronico);
-          break;
+  if (['nombre', 'apellido'].includes(campo.name) && !esNombreApellidoValido(campo)) {
+    console.log(mensajes.nombreApellido);
+    campo.setCustomValidity(mensajes.nombreApellido);
+    formulario.reportValidity();
+    return;
+  }
 
-        default:
-      }
-    } else input.setCustomValidity('');
-  });
+  if (campo.name === 'dni' && !esDniValido(campo)) {
+    campo.setCustomValidity(mensajes.dni);
+    return;
+  }
+
+  if (campo.name === 'email' && !esEmailValido(campo)) {
+    campo.setCustomValidity(mensajes.correoElectronico);
+    return;
+  }
+
+  campo.setCustomValidity('');
 }
 
-['campo-nombre', 'campo-apellido', 'campo-dni', 'campo-email'].map(validar);
+boton.addEventListener('click', (e) => {
+  e.preventDefault();
+  campos.forEach(validarCampo);
+  formulario.requestSubmit();
+});

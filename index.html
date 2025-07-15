@@ -17,27 +17,26 @@
         <form id="formulario-instancia" action="index2.php" method="get">
             <fieldset class="p-2">
                 <legend>Nombre</legend>
-                <input id="campo-nombre" type="text" name="nombre" required="true" pattern="[A-Za-zñÁÉÍÓÚáéíóú]+" />
+                <input class="field" type="text" name="nombre" />
             </fieldset>
 
             <fieldset class="p-2">
                 <legend>Apellido</legend>
-                <input id="campo-apellido" type="text" name="apellido" required="true" pattern="[A-Za-zñÁÉÍÓÚáéíóú]+" />
+                <input class="field" type="text" name="apellido" />
             </fieldset>
 
             <fieldset class="p-2">
                 <legend>DNI</legend>
-                <input type="text" id="campo-dni" name="dni" required="true"
-                    pattern="([A-Z]-[0-9]{8})|([0-9]{8}-[A-Z])" />
+                <input class="field" type="text" name="dni" />
             </fieldset>
 
             <fieldset class="p-2">
                 <legend>Correo electrónico</legend>
-                <input type="email" id="campo-email" name="email" required="true" />
+                <input class="field" type="email" name="email" />
             </fieldset>
 
             <fieldset class="p-2">
-                <input type="submit" value="Enviar" />
+                <input id="submit" class="btn btn-primary btn-submit" type="submit" value="Enviar" />
             </fieldset>
         </form>
     </div>

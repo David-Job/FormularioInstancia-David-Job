@@ -1,6 +1,13 @@
 <?php
+$nombre = $_REQUEST['nombre'];
+$apellido = $_REQUEST['apellido'];
+$dni = $_REQUEST['dni'];
+$email = $_REQUEST['email'];
+
+$primera_linea = "$nombre $apellido con DNI $dni y correo electrónico $email";
+$fecha = date("d/m/Y");
 ?>
-<!DOCTYPE html>
+<!doctype html>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -12,16 +19,17 @@
     </head>
 
     <body>
-        <!-- contenido -->
-        <div class="mt-3 ms-5">
+        <div class=" card m-3">
+
+            <h1 class="d-flex justify-content-center pt-2">Instancia</h1>
+            <p class="d-flex justify-content-end me-3">Fecha: <?= $fecha ?></p>
+            <p class="ms-3"><?= $primera_linea ?></p>
+            <p class="ms-3">Expone:</p>
+            <p class="ms-3">Solicita:</p>
         </div>
-        <!-- /contenido -->
-        <!-- comportamiento -->
+
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
         crossorigin="anonymous"></script>
-        <!-- /comportamiento -->
-        <!-- /contenido -->
     </body>
-
 </html>
